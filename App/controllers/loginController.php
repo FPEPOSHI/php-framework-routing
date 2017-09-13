@@ -6,18 +6,23 @@
  * Date: 7/31/17
  * Time: 10:38 AM
  */
-class loginController extends _controllerBase
+class loginController
 {
     function __construct()
     {
 
-//        echo 'U therrit vetem konstruktori';
+        if (App::isLogged()) {
+            App::redirect('homeController');
+        } else if (isset($_POST['Logme'])) {
+            $this->checkLogin();
+        } else {
+            App::_view('login.view');
+        }
     }
 
 
-
-
-    public function checkLogin(){
+    public function checkLogin()
+    {
 
         echo 'U therrit funksioni';
 

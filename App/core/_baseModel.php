@@ -22,6 +22,7 @@ class _baseModel
 
     protected function rawSelect($sql)
     {
+//        echo $sql;die();
         try {
             $stmt = $this->con->prepare($sql);
             $stmt->execute();
@@ -34,7 +35,7 @@ class _baseModel
     }
 
     //insert
-    protected function dbInsert($table, $values)
+    public function dbInsert($table, $values)
     {
         $fieldnames = array_keys($values);
         $sql = "INSERT INTO $table";
@@ -43,6 +44,8 @@ class _baseModel
         $sql .= $fields . ' VALUES ' . $bound;
         $stmt = $this->con->prepare($sql);
         $stmt->execute($values);
+
+        return $id = $this->con->lastInsertId();
     }
 
     //update
@@ -93,5 +96,27 @@ class _baseModel
         $stmt->execute();
         $rowcount = $stmt->fetch(PDO::FETCH_OBJ);
         return $rowcount->num;
+    }
+
+
+    protected function post_where()
+    {
+
+        $where = "";
+        $and = "";
+
+
+
+//        echo json_encode($where);die();
+
+
+        return $where;
+    }
+
+    protected function post($var)
+    {
+        if (isset($_POST[$var]))
+            return $_POST[$var];
+        return '';
     }
 }

@@ -9,10 +9,10 @@
 class _controllerBase
 {
 
-    function __construct()
+    function __construct($use_login = true)
     {
 
-        if (!App::isLogged()) {
+        if ($use_login && !App::isLogged()) {
             App::redirect('loginController');
         }
 
